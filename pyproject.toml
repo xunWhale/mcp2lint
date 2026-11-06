@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcp2lint"
+version = "0.1.0"
+description = "Find the lines that break when a Python MCP server moves from SDK v1 to v2, before you run it and read a traceback."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Shen Xun", email = "2338923971@qq.com" }]
+keywords = ["mcp", "migration", "lint", "breaking-change", "python"]
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=7"]
+
+[project.scripts]
+mcp2lint = "mcp2lint.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

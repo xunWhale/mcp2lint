@@ -1,0 +1,28 @@
+gammaremover_gamma-watermark-remover-mcp/gamma_watermark_remover_mcp/http_server.py:16:1: error [MCP001] mcp.server.fastmcp was renamed to mcp.server.mcpserver in v2
+    from mcp.server.fastmcp import FastMCP
+    fix: from mcp.server.mcpserver import MCPServer as FastMCP  # or rename the symbol everywhere
+gammaremover_gamma-watermark-remover-mcp/gamma_watermark_remover_mcp/http_server.py:32:10: error [MCP030] host= on the server constructor is not a v2 parameter
+    host=os.environ.get("MCP_HOST", "127.0.0.1"),
+    fix: pass it to mcp.run(transport=..., host=...) instead
+gammaremover_gamma-watermark-remover-mcp/gamma_watermark_remover_mcp/http_server.py:33:10: error [MCP030] port= on the server constructor is not a v2 parameter
+    port=int(os.environ.get("MCP_PORT", "8331")),
+    fix: pass it to mcp.run(transport=..., port=...) instead
+gammaremover_gamma-watermark-remover-mcp/gamma_watermark_remover_mcp/http_server.py:34:20: error [MCP030] stateless_http= on the server constructor is not a v2 parameter
+    stateless_http=True,
+    fix: pass it to mcp.run(transport=..., stateless_http=...) instead
+gammaremover_gamma-watermark-remover-mcp/gamma_watermark_remover_mcp/server.py:12:1: error [MCP001] mcp.server.fastmcp was renamed to mcp.server.mcpserver in v2
+    from mcp.server.fastmcp import FastMCP
+    fix: from mcp.server.mcpserver import MCPServer as FastMCP  # or rename the symbol everywhere
+jelmervdm_sophos-firewall-mcp/src/sophos_firewall_mcp/prompts.py:3:1: error [MCP001] mcp.server.fastmcp was renamed to mcp.server.mcpserver in v2
+    from mcp.server.fastmcp import FastMCP
+    fix: from mcp.server.mcpserver import MCPServer as FastMCP  # or rename the symbol everywhere
+jelmervdm_sophos-firewall-mcp/src/sophos_firewall_mcp/resources.py:4:1: error [MCP001] mcp.server.fastmcp was renamed to mcp.server.mcpserver in v2
+    from mcp.server.fastmcp import FastMCP
+    fix: from mcp.server.mcpserver import MCPServer as FastMCP  # or rename the symbol everywhere
+jelmervdm_sophos-firewall-mcp/src/sophos_firewall_mcp/server.py:4:1: error [MCP001] mcp.server.fastmcp was renamed to mcp.server.mcpserver in v2
+    from mcp.server.fastmcp import FastMCP
+    fix: from mcp.server.mcpserver import MCPServer as FastMCP  # or rename the symbol everywhere
+zvec-ai_zvec-mcp-server/src/zvec_mcp/server.py:10:1: error [MCP001] mcp.server.fastmcp was renamed to mcp.server.mcpserver in v2
+    from mcp.server.fastmcp import FastMCP
+    fix: from mcp.server.mcpserver import MCPServer as FastMCP  # or rename the symbol everywhere
+9 error(s), 0 warning(s)
