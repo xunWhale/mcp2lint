@@ -79,6 +79,8 @@ The rules were checked against three real repositories that each have an open `M
 
 All three reproduce the reported crash. `mcp2lint` named the import line plus the constructor kwargs their issues never mentioned.
 
+The opposite check matters just as much: run against `modelcontextprotocol/python-sdk` itself (v2 source), it reports **0 findings**. An earlier draft flagged `mcp.client.streamable_http` wholesale and lit up the v2-only name `streamable_http_client` sitting right next to the removed alias, so the rules now key on the imported *name*, not just the module.
+
 ## Development
 
 ```bash

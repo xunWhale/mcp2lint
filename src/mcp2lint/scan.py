@@ -11,6 +11,7 @@ from mcp2lint.rules import (
     CAMEL_ATTRIBUTES,
     CONSTRUCTOR_MOVES,
     DEAD_IMPORTS,
+    DEAD_NAMES,
     DEAD_TYPE_NAMES,
     ERROR,
     Rule,
@@ -113,6 +114,19 @@ def scan_source(source: str, path: Path) -> list[Finding]:
                         snippet=_snippet(lines, node.lineno),
                     )
                 )
+            if node.level == 0:
+                for alias in node.names:
+                    dead = DEAD_NAMES.get((module, alias.name))
+                    if dead is not None:
+                        findings.append(
+                            Finding(
+                                path=path,
+                                line=node.lineno,
+                                column=node.col_offset + 1,
+                                rule=dead,
+                                snippet=_snippet(lines, node.lineno),
+                            )
+                        )
             if node.level == 0 and module in {"mcp.types", "mcp"}:
                 for alias in node.names:
                     if alias.name in DEAD_TYPE_NAMES:

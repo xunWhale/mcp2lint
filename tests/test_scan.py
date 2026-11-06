@@ -92,3 +92,43 @@ def test_skips_virtualenv_directories(tmp_path: Path) -> None:
     _write(venv, "vendored.py", "from mcp.server.fastmcp import FastMCP\n")
     report = scan_paths([tmp_path])
     assert report.findings == []
+
+
+def test_v2_streamable_http_client_is_not_flagged(tmp_path: Path) -> None:
+    """The v2 name has underscores; only the v1 alias was removed."""
+    path = _write(
+        tmp_path,
+        "ok.py",
+        "from mcp.client.streamable_http import streamable_http_client\n",
+    )
+    assert scan_source(path.read_text(), path) == []
+
+
+def test_removed_name_in_a_live_module_is_flagged(tmp_path: Path) -> None:
+    path = _write(
+        tmp_path,
+        "old.py",
+        "from mcp.client.streamable_http import streamablehttp_client\n",
+    )
+    findings = scan_source(path.read_text(), path)
+    assert [f.rule.id for f in findings] == ["MCP004"]
+
+
+def test_other_names_in_shared_context_are_not_flagged(tmp_path: Path) -> None:
+    """mcp.shared.context still exports BaseContext; only RequestContext moved."""
+    path = _write(
+        tmp_path,
+        "ctx.py",
+        "from mcp.shared.context import BaseContext\n",
+    )
+    assert scan_source(path.read_text(), path) == []
+
+
+def test_request_context_is_flagged_wherever_it_is_imported(tmp_path: Path) -> None:
+    path = _write(
+        tmp_path,
+        "ctx_old.py",
+        "from mcp.shared.context import RequestContext\n",
+    )
+    findings = scan_source(path.read_text(), path)
+    assert [f.rule.id for f in findings] == ["MCP003"]

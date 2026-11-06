@@ -37,7 +37,16 @@ DEAD_IMPORTS: dict[str, Rule] = {
         summary="mcp.shared.version was removed in v2",
         fix="from mcp.types.version import LATEST_PROTOCOL_VERSION",
     ),
-    "mcp.shared.context": Rule(
+}
+
+#: Individual names removed from a module that still exists. Reporting the whole
+#: module here would flag the names that are still exported next to them, which
+#: is exactly the false positive this tool cannot afford.
+DEAD_NAMES: dict[tuple[str, str], Rule] = {
+    (
+        "mcp.shared.context",
+        "RequestContext",
+    ): Rule(
         id="MCP003",
         summary="mcp.shared.context.RequestContext was split in v2",
         fix=(
@@ -45,10 +54,13 @@ DEAD_IMPORTS: dict[str, Rule] = {
             "# or mcp.client.context.ClientRequestContext"
         ),
     ),
-    "mcp.client.streamable_http": Rule(
+    (
+        "mcp.client.streamable_http",
+        "streamablehttp_client",
+    ): Rule(
         id="MCP004",
         summary="streamablehttp_client was removed in v2",
-        fix="use mcp.client.streamable_http.streamable_http_client instead",
+        fix="use streamable_http_client (with underscores) instead",
     ),
 }
 
