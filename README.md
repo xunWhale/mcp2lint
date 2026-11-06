@@ -93,3 +93,5 @@ Zero runtime dependencies. Python 3.9+.
 ## License
 
 MIT
+
+![CI](https://github.com/xunWhale/mcp2lint/actions/workflows/ci.yml/badge.svg)
